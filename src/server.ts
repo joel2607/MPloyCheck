@@ -19,11 +19,11 @@ const angularApp = new AngularNodeAppEngine();
  * Uncomment and define endpoints as necessary.
  *
  * Example:
- * ```ts
- * app.get('/api/**', (req, res) => {
- *   // Handle API request
- * });
- * ```
+ * ```ts*/
+//  app.get('/api/**', (req, res) => {
+//    // Handle API request
+//  });
+ /* ```
  */
 
 /**
