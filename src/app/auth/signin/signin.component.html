@@ -28,6 +28,7 @@
         <div *ngIf="password?.errors?.['minlength']">Password must be at least 6 characters</div>
       </div>
     </div>
+    <div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
 
     <button type="submit" [disabled]="signinForm.invalid">Sign In</button>
   </form>

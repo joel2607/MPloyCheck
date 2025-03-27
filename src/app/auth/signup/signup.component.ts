@@ -21,7 +21,8 @@ export class SignupComponent implements OnInit {
       passwords: this.fb.group({
         password: ['', [Validators.required, Validators.minLength(8)]],
         confirmPassword: ['', Validators.required]
-      }, { validators: this.passwordsMatch })
+      }, { validators: this.passwordsMatch },),
+      role: ['general', Validators.required]
     });
   }
 
