@@ -6,7 +6,8 @@
       <h1>MPloyCheck</h1>
 
       <nav *ngIf="user" class="user-navigation">
-        <span class="user-info">{{ user.name }} ({{ user.email }})</span>
+        <!-- Use optional chaining (?.) for safety -->
+        <span class="user-info">{{ user.name }} ({{ user.email }}) {{ user.role === 'admin' ? '[Admin]' : '' }}</span>
         <button class="btn btn-secondary" (click)="logout()">Logout</button>
       </nav>
     </div>
@@ -31,14 +32,15 @@
 
     <!-- Logged In State -->
     <ng-template #loggedIn>
-      <div class="content-card welcome-dashboard">
+      <!-- Check if user exists before accessing properties -->
+      <div *ngIf="user" class="content-card welcome-dashboard">
         <h2>Welcome, {{ user.name }}!</h2>
 
         <!-- Job Offers Dashboard Section -->
         <div class="dashboard-content job-dashboard">
           <h3>Your Job Offers</h3>
-
-          <!-- Loading State -->
+          <!-- ... (existing job offers table code remains the same) ... -->
+           <!-- Loading State -->
           <div *ngIf="isLoadingJobs" class="loading-message">
              Loading job offers...
           </div>
@@ -69,28 +71,84 @@
                 </tr>
               </thead>
               <tbody>
-                <!-- Use index for delete splice if needed, but prefer job.id -->
                 <tr *ngFor="let job of jobOffers; let i = index">
                   <td>{{ job.jobTitle }}</td>
                   <td>{{ job.companyName }}</td>
                   <td>{{ job.location }}</td>
-                  <td>{{ job.salary | currency:'USD':'symbol':'1.0-0' }}</td> <!-- Basic currency format -->
+                  <td>{{ job.salary | currency:'USD':'symbol':'1.0-0' }}</td>
                   <td><span class="status-badge" [ngClass]="job.status">{{ job.status }}</span></td>
                   <td class="description-cell">{{ job.description }}</td>
-                  <td>{{ job.createdAt | date:'shortDate' }}</td> <!-- Basic date format -->
+                  <td>{{ job.createdAt | date:'shortDate' }}</td>
                 </tr>
               </tbody>
             </table>
           </div>
         </div>
-      </div>
+
+        <!-- =================================== -->
+        <!--       Admin Controls Section        -->
+        <!-- =================================== -->
+        <div *ngIf="user.role === 'admin'" class="admin-controls-section dashboard-content">
+          <h4>Admin Controls</h4>
+
+          <!-- Slider Section (POST Request) -->
+          <div class="admin-slider-container">
+            <label for="adminSlider">Set Value (0-100): {{ adminSliderValue }}</label>
+            <div class="slider-wrapper">
+              <input
+                type="range"
+                id="adminSlider"
+                min="0"
+                max="100"
+                step="1"
+                [(ngModel)]="adminSliderValue"
+                class="admin-slider"
+                [disabled]="isSubmittingSlider"
+              />
+              <button
+                class="btn btn-primary btn-sm"
+                (click)="submitSliderValue()"
+                [disabled]="isSubmittingSlider">
+                {{ isSubmittingSlider ? 'Submitting...' : 'Submit Value' }}
+              </button>
+            </div>
+             <!-- POST Status Messages -->
+            <div *ngIf="sliderSubmitSuccess" class="success-message admin-feedback">
+              {{ sliderSubmitSuccess }}
+            </div>
+            <div *ngIf="sliderSubmitError" class="error-message admin-feedback">
+              {{ sliderSubmitError }}
+            </div>
+          </div>
+
+          <!-- GET Request Section -->
+          <div class="admin-get-container">
+            <button
+              class="btn btn-info"
+              (click)="fetchAdminData()"
+              [disabled]="isAdminDataLoading">
+               {{ isAdminDataLoading ? 'Fetching...' : 'Fetch Base Data' }}
+            </button>
+
+            <!-- GET Loading/Error/Response Area -->
+            <div class="admin-get-output-area">
+              <div *ngIf="isAdminDataLoading" class="loading-message">
+                Loading data... (This might take up to 10 seconds)
+              </div>
+              <div *ngIf="adminDataError && !isAdminDataLoading" class="error-message dashboard-error">
+                {{ adminDataError }}
+              </div>
+              <div *ngIf="adminDataResponse && !isAdminDataLoading && !adminDataError" class="admin-data-output">
+                <h5>Response:</h5>
+                <!-- Use 'pre' tag and 'json' pipe for better formatting of JSON data -->
+                <pre>{{ adminDataResponse | json }}</pre>
+              </div>
+            </div>
+          </div>
+
+        </div> <!-- End Admin Controls Section -->
+
+      </div> <!-- End Logged In Content Card -->
     </ng-template>
   </main>
-
-  <!-- Optional Footer -->
-  <!--
-  <footer class="app-footer">
-    <p>© 2023 MPloyCheck. All rights reserved.</p>
-  </footer>
-  -->
 </div>
