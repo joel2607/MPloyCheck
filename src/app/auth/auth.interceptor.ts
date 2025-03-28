@@ -1,35 +1,27 @@
-// src/app/auth.interceptor.ts
-import { inject, PLATFORM_ID } from '@angular/core'; // Import inject
+import { inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import {
   HttpEvent,
-  HttpHandlerFn, // Use HttpHandlerFn
+  HttpHandlerFn,
   HttpRequest,
   HttpErrorResponse,
-  HttpInterceptorFn // Use HttpInterceptorFn
+  HttpInterceptorFn
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
-// Define the interceptor as a function matching HttpInterceptorFn
 export const authInterceptor: HttpInterceptorFn = (
   req: HttpRequest<unknown>,
-  next: HttpHandlerFn // Use HttpHandlerFn here
+  next: HttpHandlerFn 
 ): Observable<HttpEvent<unknown>> => {
 
-  // Inject dependencies inside the function
   const platformId = inject(PLATFORM_ID);
   const router = inject(Router);
 
-  // --- Logic remains largely the same, but without 'this' ---
-
   if (isPlatformBrowser(platformId)) {
     const token = localStorage.getItem('token');
-    const isApiUrl = req.url.startsWith('http://localhost:8000/'); // Adjust as needed
-
-    console.log('Interceptor running...'); 
-    console.log('Token:', token);
+    const isApiUrl = req.url.startsWith('http://localhost:8000/');
 
     if (token && isApiUrl) {
       const authReq = req.clone({
@@ -53,8 +45,7 @@ export const authInterceptor: HttpInterceptorFn = (
     }
   }
 
-  // If no token or not browser/API URL, pass the original request
-  return next(req).pipe( // Use the 'next' function passed in
+  return next(req).pipe(
      catchError((error: HttpErrorResponse) => {
         console.error('HTTP Error (Interceptor):', error);
         return throwError(() => error);

@@ -1,15 +1,11 @@
-// home.component.ts
-
 import { Component, Inject, OnInit, OnDestroy, PLATFORM_ID } from '@angular/core';
-// Import CommonModule, HttpClientModule, AND FormsModule for standalone component
 import { CommonModule, isPlatformBrowser, CurrencyPipe, DatePipe } from '@angular/common';
-import { FormsModule } from '@angular/forms'; // <-- Import FormsModule
+import { FormsModule } from '@angular/forms'; 
 import { Router } from '@angular/router';
-import { HttpClient, HttpClientModule, HttpErrorResponse } from '@angular/common/http'; // Import HttpClient & Module
-import { Subscription } from 'rxjs'; // To manage HTTP subscription
-import { finalize } from 'rxjs/operators'; // To handle completion
+import { HttpClient, HttpErrorResponse } from '@angular/common/http'; 
+import { Subscription } from 'rxjs'; 
+import { finalize } from 'rxjs/operators'; 
 
-// --- Interface based on the Mongoose Schema ---
 export interface JobOffer {
   _id: string;
   userId: string;
@@ -23,13 +19,11 @@ export interface JobOffer {
   updatedAt: string | Date;
 }
 
-// Define a basic user structure including the role
 export interface User {
     _id: string;
     name: string;
     email: string;
-    role?: 'admin' | 'user'; // Make role optional if not always present
-    // Add other user properties if available
+    role?: 'admin' | 'user'; 
 }
 
 @Component({
@@ -37,11 +31,10 @@ export interface User {
   templateUrl: './home.component.html',
   styleUrls: ['./global.styles.scss'],
   standalone: true,
-  // Add HttpClientModule, Pipes, and FormsModule here
-  imports: [CommonModule, HttpClientModule, CurrencyPipe, DatePipe, FormsModule] // <-- Add FormsModule
+  imports: [CommonModule, CurrencyPipe, DatePipe, FormsModule] // <-- Add FormsModule
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  user: User | null = null; // Use the User interface
+  user: User | null = null; 
   jobOffers: JobOffer[] = [];
   isLoadingJobs = false;
   jobFetchError: string | null = null;
@@ -75,11 +68,10 @@ export class HomeComponent implements OnInit, OnDestroy {
             // Basic validation
             if (parsedUser && parsedUser._id && parsedUser.email && parsedUser.name) {
                 this.user = parsedUser;
-                // Fetch jobs ONLY if user is loaded successfully
                 this.fetchJobOffers(this.user._id);
             } else {
                 console.error("User data loaded from localStorage is incomplete or invalid.");
-                this.logout(); // Log out if essential user info is missing
+                this.logout();
             }
           } catch (error) {
               console.error("Error parsing user data from localStorage:", error);
@@ -144,14 +136,12 @@ export class HomeComponent implements OnInit, OnDestroy {
             next: (response) => {
                 console.log('Slider value submitted successfully:', response);
                 this.sliderSubmitSuccess = 'Value submitted successfully!';
-                // Clear success message after a delay
-                setTimeout(() => this.sliderSubmitSuccess = null, 3000);
+                setTimeout(() => this.sliderSubmitSuccess = null, 1500);
             },
             error: (error: HttpErrorResponse) => {
                 console.error('Error submitting slider value:', error);
                 this.sliderSubmitError = `Failed to submit value (${error.statusText || 'Unknown error'}).`;
-                 // Clear error message after a delay
-                 setTimeout(() => this.sliderSubmitError = null, 5000);
+                setTimeout(() => this.sliderSubmitError = null, 5000);
             }
         });
   }
@@ -206,7 +196,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.jobOffers = [];
         this.jobFetchError = null;
         // Clear admin states on logout
-        this.adminSliderValue = 50;
+        this.adminSliderValue = 2;
         this.adminDataResponse = null;
         this.adminDataError = null;
         this.sliderSubmitError = null;

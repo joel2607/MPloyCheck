@@ -48,11 +48,9 @@ export class SigninComponent implements OnInit {
         password: this.signinForm.value.password
       }).subscribe({
         next: (response) => {
-          // Store JWT token and user details
           localStorage.setItem('token', response.token);
           localStorage.setItem('user', JSON.stringify(response.user));
           
-          // Navigate to home
           this.router.navigate(['/home']);
         },
         error: (error) => {

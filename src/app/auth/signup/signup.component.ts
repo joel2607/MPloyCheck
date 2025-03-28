@@ -43,7 +43,6 @@ export class SignupComponent implements OnInit {
     });
   }
 
-  // Custom validator to check if passwords match
   passwordsMatch(group: FormGroup): {[key: string]: any} | null {
     const password = group.get('password')?.value;
     const confirmPassword = group.get('confirmPassword')?.value;
