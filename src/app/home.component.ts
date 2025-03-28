@@ -41,7 +41,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   private jobSubscription: Subscription | null = null;
 
   // --- Admin Specific Properties ---
-  adminSliderValue: number = 50; // Default slider value
+  adminSliderValue: number = 2; // Default slider value
   isSubmittingSlider: boolean = false; // Loading state for POST
   sliderSubmitError: string | null = null; // Error for POST
   sliderSubmitSuccess: string | null = null; // Success message for POST
