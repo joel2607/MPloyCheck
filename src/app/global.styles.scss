@@ -1,0 +1,312 @@
+/* home.styles.css */
+
+/* ========================================= */
+/* General Page Layout & Structure          */
+/* ========================================= */
+
+.home-page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+/* ========================================= */
+/* Header Styles                             */
+/* ========================================= */
+
+.app-header {
+  background-color: #ffffff;
+  padding: 10px 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid #ddd;
+  width: 100%;
+  box-sizing: border-box;
+  flex-shrink: 0; /* Prevent header from shrinking */
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 24px;
+  color: #333;
+}
+
+.user-navigation {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.user-info {
+  font-size: 14px;
+  color: #555;
+}
+
+/* ========================================= */
+/* Main Content Area                         */
+/* ========================================= */
+
+.main-content {
+  display: flex;          /* Use flexbox to control children */
+  flex-grow: 1;         /* Make main fill vertical space below header */
+  padding: 10px;           /* No padding around direct children */
+
+  /* --- Center direct children (like auth forms OR the home content card) --- */
+  justify-content: center;
+  align-items: center;
+}
+
+/* ========================================= */
+/* Home Page Content Card (Dashboard/Prompt) */
+/* ========================================= */
+
+/* This card (when displayed) needs to FILL the main-content area */
+.content-card {
+  /* --- Overrides parent's centering to fill space --- */
+  flex-grow: 1;         /* Allow growing */
+  width: 100%;          /* Force full width */
+  align-self: stretch;  /* Force full height within flex context */
+  margin: 0;            /* No margin */
+
+  /* --- Flex container to center ITS OWN content --- */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  /* --- Internal Padding & Visuals --- */
+  padding: 25px;          /* Space inside the card */
+  background-color: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+  /* Remove border/radius for seamless fill */
+  border-radius: 0;
+  border: none;
+}
+
+/* --- Styles specific to content WITHIN the home .content-card --- */
+
+.content-card h2, /* Applies to Welcome heading */
+.content-card h3 { /* Applies to Dashboard heading */
+  text-align: center;
+  margin-top: 0; /* Reset top margin */
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Logged Out Prompt Text */
+.auth-prompt-card .prompt-text {
+  text-align: center;
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 25px;
+}
+
+/* Logged Out Action Buttons Container */
+.auth-actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+/* Logged In Dashboard Text */
+.welcome-dashboard p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #444;
+  text-align: center;
+}
+
+
+/* ========================================= */
+/* Authentication Form Styles (Merged)      */
+/* ========================================= */
+
+/* Applied to the wrapper div in signin/signup components */
+.signin-container,
+.signup-container {
+  /* --- Sizing and Centering --- */
+  max-width: 400px;     /* Limit width */
+  width: 90%;           /* Ensure some width on very small screens */
+  flex-shrink: 0;       /* Prevent shrinking if space is tight */
+
+  /* --- Visuals --- */
+  padding: 20px;
+  background-color: #ffffff; /* Explicitly set background */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  border: 1px solid #eee; /* Added border consistent with home card */
+  box-sizing: border-box; /* Include padding/border in width */
+}
+
+/* --- Styles specific to content WITHIN auth forms --- */
+
+/* Using a more specific selector for the form title */
+.signin-container h2,
+.signup-container h2 {
+  text-align: center;
+  margin-top: 0; /* Good practice */
+  margin-bottom: 20px;
+  font-size: 22px; /* Slightly adjust if needed */
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 14px; /* Optional: consistent font size */
+  color: #444;   /* Optional: slightly softer color */
+}
+
+.form-control {
+  width: 100%;
+  padding: 8px 10px; /* Adjusted padding slightly */
+  border: 1px solid #ccc; /* Slightly darker border */
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 15px;
+}
+/* Add focus styles */
+.form-control:focus {
+  border-color: #0275d8;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(2, 117, 216, 0.2);
+}
+
+
+.error-message {
+  color: #d9534f;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+
+/* ========================================= */
+/* Button Styles                             */
+/* ========================================= */
+
+/* --- Base .btn class for general use (Home page) --- */
+.btn {
+  padding: 10px 20px;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  text-align: center;
+  transition: background-color 0.2s ease-in-out;
+  display: inline-block;
+  text-decoration: none; /* Remove underline if using <a> */
+  line-height: 1.5; /* Ensure consistent height */
+}
+
+/* Primary Button */
+.btn-primary {
+  background-color: #0275d8;
+}
+.btn-primary:hover {
+  background-color: #025aa5;
+}
+
+/* Secondary Button */
+.btn-secondary {
+  background-color: #6c757d;
+}
+.btn-secondary:hover {
+  background-color: #5a6268;
+}
+
+/* Header Logout Button Specifics */
+.user-navigation .btn-secondary {
+  padding: 6px 12px;
+  font-size: 14px;
+}
+
+/* --- Auth Form Submit Button --- */
+/* Scoping this more tightly to avoid conflicts */
+.signin-container button[type="submit"],
+.signup-container button[type="submit"] {
+  width: 100%; /* Full width within form */
+  padding: 10px;
+  background-color: #0275d8;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 10px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.signin-container button[type="submit"]:hover,
+.signup-container button[type="submit"]:hover {
+  background-color: #025aa5;
+}
+
+/* Combined disabled state for ALL buttons */
+.btn:disabled,
+.signin-container button[type="submit"]:disabled,
+.signup-container button[type="submit"]:disabled {
+  background-color: #cccccc;
+  color: #666666; /* Ensure text is readable */
+  cursor: not-allowed;
+  /* Optional: prevent hover effect on disabled */
+  /* background-color: #cccccc !important; */
+}
+
+
+/* ========================================= */
+/* Responsive Adjustments                    */
+/* ========================================= */
+
+@media (max-width: 768px) {
+  .header-content {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .user-navigation {
+    margin-top: 10px;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  /* Adjust internal padding for cards on small screens */
+  .content-card,
+  .signin-container,
+  .signup-container {
+     padding: 20px;
+  }
+
+  /* Stack home page action buttons */
+  .auth-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .auth-actions .btn {
+     width: 100%;
+     margin-bottom: 10px;
+  }
+   .auth-actions .btn:last-child {
+     margin-bottom: 0;
+  }
+}
+
+/* Optional Footer Styles */
+/*
+.app-footer { ... }
+*/

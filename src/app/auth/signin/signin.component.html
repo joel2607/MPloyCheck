@@ -1,35 +1,62 @@
-<div class="signin-container">
-  <h2>Sign In</h2>
-  <form [formGroup]="signinForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="email">Email</label>
-      <input 
-        id="email" 
-        type="email" 
-        formControlName="email"
-        class="form-control">
-      
-      <div *ngIf="email?.invalid && (email?.dirty || email?.touched)" class="error-message">
-        <div *ngIf="email?.errors?.['required']">Email is required</div>
-        <div *ngIf="email?.errors?.['email']">Please enter a valid email</div>
-      </div>
-    </div>
+<div class="home-page-container">
+<header class="app-header">
+  <div class="header-content">
+    <h1>MPloyCheck</h1>
 
-    <div class="form-group">
-      <label for="password">Password</label>
-      <input 
-        id="password" 
-        type="password" 
-        formControlName="password"
-        class="form-control">
-      
-      <div *ngIf="password?.invalid && (password?.dirty || password?.touched)" class="error-message">
-        <div *ngIf="password?.errors?.['required']">Password is required</div>
-        <div *ngIf="password?.errors?.['minlength']">Password must be at least 6 characters</div>
-      </div>
-    </div>
-    <div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
+    <nav class="user-navigation">
+      <button class="btn btn-secondary" (click)="goHome()">Home</button>
+    </nav>
+  </div>
+</header>
 
-    <button type="submit" [disabled]="signinForm.invalid">Sign In</button>
-  </form>
+<div class="main-content">
+  <div class="content-card">
+    <div class="signin-container">
+      <h2>Sign In</h2>
+      <form [formGroup]="signinForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            class="form-control"
+          />
+
+          <div
+            *ngIf="email?.invalid && (email?.dirty || email?.touched)"
+            class="error-message"
+          >
+            <div *ngIf="email?.errors?.['required']">Email is required</div>
+            <div *ngIf="email?.errors?.['email']">
+              Please enter a valid email
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            id="password"
+            type="password"
+            formControlName="password"
+            class="form-control"
+          />
+
+          <div
+            *ngIf="password?.invalid && (password?.dirty || password?.touched)"
+            class="error-message"
+          >
+            <div *ngIf="password?.errors?.['required']">
+              Password is required
+            </div>
+          </div>
+        </div>
+        <div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+        <button type="submit" [disabled]="signinForm.invalid">Sign In</button>
+      </form>
+    </div>
+  </div>
+</div>
 </div>

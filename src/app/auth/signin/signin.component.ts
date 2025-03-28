@@ -16,7 +16,7 @@ interface AuthResponse {
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.component.html',
-  styleUrls: ['../auth.styles.scss'],
+  styleUrls: ['../../global.styles.scss'],
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule]
 })
@@ -69,6 +69,10 @@ export class SigninComponent implements OnInit {
         }
       });
     }
+  }
+
+  goHome(): void {
+    this.router.navigate(['/home']);
   }
 
   // Helper getters for template access
