@@ -306,7 +306,159 @@ label {
   }
 }
 
-/* Optional Footer Styles */
-/*
-.app-footer { ... }
-*/
+
+/* Append these styles to your existing global.styles.scss */
+
+/* ========================================= */
+/* Job Offers Dashboard Styles              */
+/* ========================================= */
+
+.job-dashboard {
+  width: 100%; /* Ensure dashboard content takes full width within card */
+  margin-top: 20px; /* Space below welcome message */
+}
+
+.job-dashboard h3 {
+  margin-bottom: 20px;
+  text-align: center;
+  color: #333;
+}
+
+.loading-message,
+.no-data-message {
+  text-align: center;
+  color: #666;
+  padding: 20px;
+  font-style: italic;
+}
+
+.dashboard-error { /* Style for error message within dashboard */
+  text-align: center;
+  padding: 15px;
+  background-color: #f8d7da; /* Light red background */
+  color: #721c24; /* Dark red text */
+  border: 1px solid #f5c6cb; /* Red border */
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.table-container {
+  width: 100%;
+  overflow-x: auto; /* Allow horizontal scrolling on small screens */
+  border: 1px solid #eee; /* Optional border around the table area */
+  border-radius: 4px;
+  background-color: #fff;
+}
+
+.job-offers-table {
+  width: 100%;
+  border-collapse: collapse; /* Remove gaps between cells */
+  font-size: 14px;
+}
+
+.job-offers-table th,
+.job-offers-table td {
+  border: 1px solid #ddd; /* Cell borders */
+  padding: 10px 12px;     /* Cell padding */
+  text-align: left;     /* Align text left by default */
+  vertical-align: middle; /* Align content vertically */
+}
+
+.job-offers-table thead {
+  background-color: #e9ecef; /* Light grey header background */
+  color: #495057;
+}
+
+.job-offers-table thead th {
+  font-weight: 600; /* Bold headers */
+}
+
+.job-offers-table tbody tr:nth-child(even) {
+  background-color: #f8f9fa; /* Subtle zebra striping */
+}
+
+.job-offers-table tbody tr:hover {
+  background-color: #e2e6ea; /* Hover effect */
+}
+
+/* Limit description width and allow wrapping */
+.job-offers-table .description-cell {
+  max-width: 250px; /* Adjust as needed */
+  white-space: normal; /* Allow wrapping */
+  word-break: break-word; /* Break long words if necessary */
+}
+
+/* Center specific columns if desired */
+.job-offers-table td:nth-child(4), /* Salary */
+.job-offers-table td:nth-child(5), /* Status */
+.job-offers-table td:nth-child(7), /* Date Added */
+.job-offers-table td:last-child   /* Actions */
+ {
+  text-align: center;
+}
+
+/* Status Badge Styles */
+.status-badge {
+  padding: 3px 8px;
+  border-radius: 12px; /* Pill shape */
+  font-size: 12px;
+  font-weight: 500;
+  color: #fff;
+  text-transform: capitalize;
+}
+
+.status-badge.pending {
+  background-color: #ffc107; /* Yellow */
+  color: #333; /* Darker text for yellow */
+}
+.status-badge.accepted {
+  background-color: #28a745; /* Green */
+}
+.status-badge.rejected {
+  background-color: #dc3545; /* Red */
+}
+
+
+/* ========================================= */
+/* Additional/Modified Button Styles        */
+/* ========================================= */
+
+/* Add a Danger button style */
+.btn-danger {
+  background-color: #dc3545;
+}
+.btn-danger:hover {
+  background-color: #c82333;
+}
+
+/* Smaller buttons for table actions */
+.btn-sm {
+  padding: 4px 8px;
+  font-size: 12px;
+  margin: 0 2px; /* Add slight spacing between buttons if more are added */
+}
+
+
+/* ========================================= */
+/* Responsive Adjustments (Table)           */
+/* ========================================= */
+@media (max-width: 992px) {
+  .job-offers-table {
+      font-size: 13px; /* Slightly smaller font on medium screens */
+  }
+   .job-offers-table th,
+   .job-offers-table td {
+       padding: 8px 10px;
+   }
+}
+
+
+@media (max-width: 768px) {
+   /* No specific changes needed here now due to overflow-x,
+      but you could hide less important columns if necessary:
+   .job-offers-table th:nth-child(6), // Hide Description header
+   .job-offers-table td:nth-child(6) { // Hide Description cell
+      display: none;
+   }
+   */
+}

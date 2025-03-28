@@ -58,7 +58,7 @@ export class SignupComponent implements OnInit {
       
       this.http.post<AuthResponse>('http://localhost:8000/auth/register', {
         email: this.signupForm.value.email,
-        password: this.signupForm.value.confirmPassword,
+        password: this.signupForm.value.passwords.password,
         name: this.signupForm.value.name,
         role: this.signupForm.value.role
       }).subscribe({

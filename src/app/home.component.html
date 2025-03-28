@@ -33,10 +33,55 @@
     <ng-template #loggedIn>
       <div class="content-card welcome-dashboard">
         <h2>Welcome, {{ user.name }}!</h2>
-        <div class="dashboard-content">
-          <h3>Your Dashboard</h3>
-          <p>This is where you can add personalized content for the user.</p>
-          <!-- Add more dashboard elements here -->
+
+        <!-- Job Offers Dashboard Section -->
+        <div class="dashboard-content job-dashboard">
+          <h3>Your Job Offers</h3>
+
+          <!-- Loading State -->
+          <div *ngIf="isLoadingJobs" class="loading-message">
+             Loading job offers...
+          </div>
+
+          <!-- Error State -->
+          <div *ngIf="jobFetchError && !isLoadingJobs" class="error-message dashboard-error">
+            {{ jobFetchError }}
+          </div>
+
+          <!-- Job Offers Table (only if not loading and no error) -->
+          <div *ngIf="!isLoadingJobs && !jobFetchError" class="table-container">
+            <!-- Message if no jobs found -->
+            <p *ngIf="jobOffers.length === 0" class="no-data-message">
+              You currently have no job offers saved.
+            </p>
+
+            <!-- The Table -->
+            <table *ngIf="jobOffers.length > 0" class="job-offers-table">
+              <thead>
+                <tr>
+                  <th>Job Title</th>
+                  <th>Company</th>
+                  <th>Location</th>
+                  <th>Salary</th>
+                  <th>Status</th>
+                  <th>Description</th>
+                  <th>Date Added</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Use index for delete splice if needed, but prefer job.id -->
+                <tr *ngFor="let job of jobOffers; let i = index">
+                  <td>{{ job.jobTitle }}</td>
+                  <td>{{ job.companyName }}</td>
+                  <td>{{ job.location }}</td>
+                  <td>{{ job.salary | currency:'USD':'symbol':'1.0-0' }}</td> <!-- Basic currency format -->
+                  <td><span class="status-badge" [ngClass]="job.status">{{ job.status }}</span></td>
+                  <td class="description-cell">{{ job.description }}</td>
+                  <td>{{ job.createdAt | date:'shortDate' }}</td> <!-- Basic date format -->
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </ng-template>
